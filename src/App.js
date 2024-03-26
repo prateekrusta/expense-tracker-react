@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from './components/homepage/home'
 import './App.css';
+import DashboardBanner from "./components/dashboard/dashboard-banner";
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
         <Route index path="/" element={<Home />} />
 
         <Route path="dashboard">
-
+          <Route index element={<DashboardBanner />} />
         </Route>
 
       </Routes>

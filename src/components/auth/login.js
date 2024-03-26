@@ -1,24 +1,16 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Loader from '../../assets/images/Loader123.gif';
 import Swal from 'sweetalert2';
 
 const Login = () => {
-  const [emailId, setEmail] = useState('');
+  const [empId, setEmpId] = useState()
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
   const history = useNavigate(); 
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
     
   const config = {
     headers: {
@@ -28,9 +20,8 @@ const Login = () => {
 
   const handleFormSubmit =(e)=> {
     e.preventDefault();
-    
+    history("/dashboard")
   };
-
 
   return (
     <>
@@ -42,14 +33,14 @@ const Login = () => {
           <h1>LOGIN</h1>
           <form onSubmit={handleFormSubmit}>
             <div className="form-group">
-              <label htmlFor="email">Email</label>
+              <label htmlFor="empId">Employee ID</label>
               <input
-                type="email"
-                name="email"
+                type="number"
+                name="empId"
                 autoComplete="off"
                 required
-                value={emailId}
-                onChange={handleEmailChange}
+                value={empId}
+                onChange={(e) => setEmpId(e.target.value)}
               />
             </div>
             <div className="form-group">
@@ -60,7 +51,7 @@ const Login = () => {
                 autoComplete="off"
                 required
                 value={password}
-                onChange={handlePasswordChange}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
 

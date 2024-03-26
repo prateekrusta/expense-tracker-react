@@ -8,8 +8,8 @@ const Banner = () => {
         <div className="box-outer row">
             <div className="box-inner-left col-sm-6">
                 <div className="heading">
-                    Empowering <span className="colorer">Healthcare</span>, Enhancing <span className="colorer">Lives</span> <br/>
-                    <small>Your <span className="colorer">Next-Generation</span> Hospital Management System</small>
+                    Streamlining <span className="colorer">Finance</span>, Empowering <span className="colorer">Teams</span> <br/>
+                    <small>Where <span className="colorer">Expense Management</span> Meets Simplicity</small>
                 </div>
             </div>
             <div className="box-inner-right col-sm-4">

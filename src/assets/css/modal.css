@@ -88,6 +88,11 @@ input[type="checkbox"]:checked ~ .modal-background {
     background: whitesmoke;
     border-radius: 30px;
   }
+
+  .modal-window-register > div {
+    width: 40% !important;
+  }
+
   .modal-window header {
     font-weight: bold;
   }

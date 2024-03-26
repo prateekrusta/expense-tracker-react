@@ -5,12 +5,12 @@
 }
 
 .navbar{
-    padding: 15px 0px !important;
+    padding: 10px 0px !important;
 }
 
 .navbar-nav{
     position: absolute;
-    right: 70px;
+    right: 50px;
 }
 
 .navbar-brand{
@@ -27,7 +27,7 @@
     font-weight: 500;
     position: relative;
     top: 2px;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .nav-link-auth{
@@ -49,13 +49,13 @@
     position: absolute;
     top: 50%;
     left: 30%;
-    transform: translate(-50%, -45%);
+    transform: translate(-50%, -48%);
 }
 
 .heading{
     position: relative;
     margin-top: 70%;
-    font-size: 60px;
+    font-size: 50px;
     font-family: "Poppins", sans-serif;
     font-weight: 600;
     text-align: left;
@@ -70,12 +70,12 @@
 .box-inner-right{
     position: absolute;
     top: 50%;
-    left: 78%;
-    transform: translate(-50%, 25%);
+    left: 81%;
+    transform: translate(-50%, 22%);
 }
 
 .img-banner{
-    width: 500px;
+    width: 400px;
 }
 
 .colorer{
@@ -85,7 +85,7 @@
 .button-banner-outer{
     position: absolute;
     top: 70%;
-    left: 16.3%;
+    left: 17%;
     transform: translate(-50%, -50%);
 }
 
@@ -96,7 +96,7 @@
     border: 2px solid #00b8cd;
     color: white;
     background-color: #00b8cd;
-    font-size: 23px;
+    font-size: 18px;
 }
 
 .button-banner2{
