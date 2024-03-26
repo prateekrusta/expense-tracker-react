@@ -7,8 +7,15 @@ const DashboardBanner = () => {
   return (
     <>
     <NavbarDashboard />
-        <div>
-            
+        <div className="banner-outer">
+            <div className="banner row">
+              <div className="banner-left col-sm-5">
+                
+              </div>
+              <div className="banner-left col-sm-5">
+              
+              </div>
+            </div>
         </div>
     </>
   )
