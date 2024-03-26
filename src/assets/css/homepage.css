@@ -70,12 +70,12 @@
 .box-inner-right{
     position: absolute;
     top: 50%;
-    left: 73%;
-    transform: translate(-50%, 30%);
+    left: 78%;
+    transform: translate(-50%, 25%);
 }
 
 .img-banner{
-    width: 600px;
+    width: 500px;
 }
 
 .colorer{
