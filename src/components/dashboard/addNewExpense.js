@@ -5,12 +5,19 @@ import Loader from '../../assets/images/Loader123.gif';
 import Swal from 'sweetalert2';
 
 const AddExpense = () => {
-  const [empName, setEmpName] = useState();
-  const [type, setType] = useState();
+  const [type, setType] = useState('Travel');
   const [details, setDetails] = useState('');
   const [amount, setAmount] = useState('');
   const [managerName, setManagerName] = useState('');
-  const [status, setStatus] = useState('');
+
+  const [empName, setEmpName] = useState('');
+
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem('data'));
+    if (data) {
+      setEmpName(data.employeeName);
+    }
+  }, []);
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
@@ -26,6 +33,8 @@ const AddExpense = () => {
   const handleFormSubmit =(e)=> {
     e.preventDefault();
 
+    const url_add_expense = `http://localhost:5206/Expenses`;
+
     const data = {
       employeeName: empName,
       type: type,
@@ -34,8 +43,29 @@ const AddExpense = () => {
       managerName:managerName,
       status:'Pending'
     };
-
-    history("/dashboard")
+    console.log(data)
+    axios.post(url_add_expense, data, config)
+    .then((response) => {
+      console.log('Successfull:', response.data);
+      localStorage.setItem('data', JSON.stringify(response.data[0]));
+      Swal.fire({
+        icon: (response.data.error) ? 'error' : 'success',
+        title: (response.data.error) ? response.data.error : "Expense Added Successfully!",
+        showConfirmButton: false,
+        timer:1500,
+      })  
+      history("/dashboard")
+    })
+    .catch((error) => {
+      console.error('Error sending data:', error.message);
+      Swal.fire({
+        icon: (error) ? 'error' : '',
+        title: (error) ? error.message : "",
+        showConfirmButton: false,
+        timer:1500,
+      }) 
+      setError(error.message);
+    });
   };
 
   return (
@@ -51,12 +81,12 @@ const AddExpense = () => {
             <div className='row'>
               <div className="form-group col-sm-12">
                 <label htmlFor="Type">Type</label>
-                <select>
-                  <option>Travel</option>
-                  <option>Food</option>
-                  <option>Health/Medical</option>
-                  <option>Accessories</option>
-                  <option>Miscellanious</option>
+                <select value={type} onChange={(e) => setType(e.target.value)}>
+                  <option onClick={(e) => setType(e.target.value)}>Travel</option>
+                  <option onClick={(e) => setType(e.target.value)}>Food</option>
+                  <option onClick={(e) => setType(e.target.value)}>Health/Medical</option>
+                  <option onClick={(e) => setType(e.target.value)}>Accessories</option>
+                  <option onClick={(e) => setType(e.target.value)}>Miscellanious</option>
                 </select>
               </div>
             </div>

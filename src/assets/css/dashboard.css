@@ -38,12 +38,12 @@
 }
 
 .banner-expense-list-icons{
-    width: 20px;
+    width: 15px;
     margin: 0px 3px;
 }
 
 .button-banner-expense-list{
     padding: 0px 0px 4px 0px;
     background-color: transparent;
-    border: 1px solid black;
+    border: 1px solid;
 }

@@ -4,18 +4,26 @@ import axios from 'axios';
 import Loader from '../../assets/images/Loader123.gif';
 import Swal from 'sweetalert2';
 
-const EditExpense = () => {
-  const [empName, setEmpName] = useState();
-  const [type, setType] = useState();
+const EditExpense = ({expenseid}) => {
+  const [type, setType] = useState('Travel');
   const [details, setDetails] = useState('');
   const [amount, setAmount] = useState('');
   const [managerName, setManagerName] = useState('');
   const [status, setStatus] = useState('');
-
+  console.log(expenseid)
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
   const history = useNavigate(); 
+
+  const [empName, setEmpName] = useState('');
+
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem('data'));
+    if (data) {
+      setEmpName(data.employeeName);
+    }
+  }, []);
     
   const config = {
     headers: {
@@ -26,6 +34,8 @@ const EditExpense = () => {
   const handleFormSubmit =(e)=> {
     e.preventDefault();
 
+    const url_edit_expense = `http://localhost:5206/Expenses/${expenseid}`;
+
     const data = {
         employeeName: empName,
         type: type,
@@ -35,6 +45,48 @@ const EditExpense = () => {
         status:'Pending'
       };
 
+      console.log(expenseid)
+      console.log(data)
+      console.log(data.type)
+
+      axios.put(url_edit_expense, data, config)
+      .then((response) => {
+        console.log('Successfull:', response.data);
+        localStorage.setItem('data', JSON.stringify(response.data[0]));
+        Swal.fire({
+          icon: (response.data.error) ? 'error' : 'success',
+          title: (response.data.error) ? response.data.error : "Expense Added Successfully!",
+          showConfirmButton: false,
+          timer:1500,
+        })  
+        history("/dashboard")
+      })
+      .catch((error) => {
+        console.error('Error sending data:', error.message);
+        Swal.fire({
+          icon: (error) ? 'error' : '',
+          title: (error) ? error.message : "",
+          showConfirmButton: false,
+          timer:1500,
+        }) 
+        setError(error.message);
+      });
+  };
+
+  const handleSaveDraft =(e)=> {
+    e.preventDefault();
+
+    const data = {
+        expenseId: expenseid,
+        employeeName: empName,
+        type: type,
+        description:details,
+        amount:amount,
+        managerName:managerName,
+        status:'Pending'
+      };
+      localStorage.setItem('editDraft', JSON.stringify(data));
+      history("/dashboard")
   };
 
   return (
@@ -50,12 +102,12 @@ const EditExpense = () => {
             <div className='row'>
               <div className="form-group col-sm-12">
                 <label htmlFor="Type">Type</label>
-                <select>
-                  <option>Travel</option>
-                  <option>Food</option>
-                  <option>Health/Medical</option>
-                  <option>Accessories</option>
-                  <option>Miscellanious</option>
+                <select value={type} onChange={(e) => setType(e.target.value)}>
+                  <option onClick={(e) => setType(e.target.value)}>Travel</option>
+                  <option onClick={(e) => setType(e.target.value)}>Food</option>
+                  <option onClick={(e) => setType(e.target.value)}>Health/Medical</option>
+                  <option onClick={(e) => setType(e.target.value)}>Accessories</option>
+                  <option onClick={(e) => setType(e.target.value)}>Miscellanious</option>
                 </select>
               </div>
             </div>
@@ -95,7 +147,7 @@ const EditExpense = () => {
             </div>
 
             <div className="btn-sbmt-cont">
-              <button type="submit" value="Save as draft!" className="btn-sbmt" disabled={isLoading}>
+              <button onClick={handleSaveDraft} type="submit" value="Save as draft!" className="btn-sbmt" disabled={isLoading}>
                 {isLoading ? (
                   <>
                     <img src={Loader} className="loginbtn-loader" alt="Loader" /> Saving...
