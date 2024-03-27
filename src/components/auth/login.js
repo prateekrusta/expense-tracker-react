@@ -5,7 +5,7 @@ import Loader from '../../assets/images/Loader123.gif';
 import Swal from 'sweetalert2';
 
 const Login = () => {
-  const [empId, setEmpId] = useState()
+  const [name, setName] = useState()
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
@@ -22,13 +22,32 @@ const Login = () => {
     e.preventDefault();
 
     const data = {
-      employeeId: empId,
+      employeeName: name,
       password: password,
     };
-
-    localStorage.setItem('data', JSON.stringify(data));
-
-    history("/dashboard")
+    const url_login = `http://localhost:5206/Users/Login`;
+    
+    axios.post(url_login, data, config)
+    .then((response) => {
+      console.log('Successfull:', response.data);
+      localStorage.setItem('data', JSON.stringify(response.data[0]));
+      Swal.fire({
+        icon: (response.data.error) ? 'error' : 'success',
+        title: (response.data.error) ? response.data.error : "User Logged-in Successfully!",
+        showConfirmButton: false,
+        timer:1500,
+      })  
+      history("/dashboard")
+    })
+    .catch((error) => {
+      console.error('Error sending data:', error.message);
+      Swal.fire({
+        icon: (error) ? 'error' : '',
+        title: (error) ? error.message : "",
+        showConfirmButton: false,
+        timer:1500,
+      }) 
+    });
   };
 
   return (
@@ -41,14 +60,14 @@ const Login = () => {
           <h1>LOGIN</h1>
           <form onSubmit={handleFormSubmit}>
             <div className="form-group">
-              <label htmlFor="empId">Employee ID</label>
+              <label htmlFor="name">Employee Name</label>
               <input
-                type="number"
-                name="empId"
+                type="text"
+                name="name"
                 autoComplete="off"
                 required
-                value={empId}
-                onChange={(e) => setEmpId(e.target.value)}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
               />
             </div>
             <div className="form-group">

@@ -24,6 +24,35 @@ const Register = () => {
 
   const handleFormSubmit =(e)=> {
     e.preventDefault();
+
+    const data = {
+      employeeName: name,
+      designation:designation,
+      project:project,
+      password: password,
+    };
+
+    const url_register = `http://localhost:5206/Users/Create`;
+
+    axios.post(url_register, data, config)
+    .then((response) => {
+      console.log('Successfull', response.data);
+      Swal.fire({
+        icon: (response.data.error) ? 'error' : 'success',
+        title: (response.data.error) ? response.data.error : "User Registered Successfully!",
+        showConfirmButton: false,
+        timer:1500,
+      })  
+    })
+    .catch((error) => {
+      console.error('Error sending data:', error.message);
+      Swal.fire({
+        icon: (error) ? 'error' : '',
+        title: (error) ? error.message : "",
+        showConfirmButton: false,
+        timer:1500,
+      }) 
+    });
     setIsLoading(false)
   };
 
@@ -40,7 +69,7 @@ const Register = () => {
 
 
           <div className='row'>
-                <div className="form-group col-sm-6">
+                <div className="form-group col-sm-12">
                 <label htmlFor="name">Employee Name</label>
                 <input
                     type="text"
@@ -49,17 +78,6 @@ const Register = () => {
                     required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                />
-                </div>
-                <div className="form-group col-sm-6">
-                <label htmlFor="empId">Employee ID</label>
-                <input
-                    type="number" 
-                    name="empId"
-                    autoComplete="off"
-                    required
-                    value={empId}
-                    onChange={(e) => setEmpId(e.target.value)}
                 />
                 </div>
             </div>
