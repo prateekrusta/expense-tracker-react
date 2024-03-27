@@ -20,6 +20,14 @@ const Login = () => {
 
   const handleFormSubmit =(e)=> {
     e.preventDefault();
+
+    const data = {
+      employeeId: empId,
+      password: password,
+    };
+
+    localStorage.setItem('data', JSON.stringify(data));
+
     history("/dashboard")
   };
 

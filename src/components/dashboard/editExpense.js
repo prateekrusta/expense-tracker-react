@@ -4,7 +4,7 @@ import axios from 'axios';
 import Loader from '../../assets/images/Loader123.gif';
 import Swal from 'sweetalert2';
 
-const AddExpense = () => {
+const EditExpense = () => {
   const [empName, setEmpName] = useState();
   const [type, setType] = useState();
   const [details, setDetails] = useState('');
@@ -27,25 +27,24 @@ const AddExpense = () => {
     e.preventDefault();
 
     const data = {
-      employeeName: empName,
-      type: type,
-      description:details,
-      amount:amount,
-      managerName:managerName,
-      status:'Pending'
-    };
+        employeeName: empName,
+        type: type,
+        description:details,
+        amount:amount,
+        managerName:managerName,
+        status:'Pending'
+      };
 
-    history("/dashboard")
   };
 
   return (
     <>
-      <div id="addexpense" className="modal-window modal-window-register">
+      <div id="editExpense" className="modal-window modal-window-register">
         <div>
           <a href="#" title="Close" className="modal-close">
             X
           </a>
-          <h1>Add New Expense</h1>
+          <h1>Edit Expense</h1>
           <form onSubmit={handleFormSubmit}>
 
             <div className='row'>
@@ -96,6 +95,15 @@ const AddExpense = () => {
             </div>
 
             <div className="btn-sbmt-cont">
+              <button type="submit" value="Save as draft!" className="btn-sbmt" disabled={isLoading}>
+                {isLoading ? (
+                  <>
+                    <img src={Loader} className="loginbtn-loader" alt="Loader" /> Saving...
+                  </>
+                ) : (
+                  'Save as draft!'
+                )}
+              </button> &nbsp;&nbsp;
               <button type="submit" value="Submit" className="btn-sbmt" disabled={isLoading}>
                 {isLoading ? (
                   <>
@@ -116,4 +124,4 @@ const AddExpense = () => {
   );
 };
 
-export default AddExpense;
+export default EditExpense;

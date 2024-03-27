@@ -213,3 +213,7 @@ input[type="checkbox"]:checked ~ .modal-background {
     font-size: 150%;
     margin-bottom: 30px;
   }
+
+  .btn-sbmt-cont{
+    display: flex;
+  }

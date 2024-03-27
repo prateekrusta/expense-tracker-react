@@ -1,0 +1,20 @@
+{ "data" : 
+    [{
+    "exp_id" : 1,
+    "type" : "Travel",
+    "amount" : "$700",
+    "details" : "Travelled Delhi to New York",
+    "managerName" : "Mr. Sumit Kumar",
+    "status" : "Pending",
+    "timestamp" : "2024-03-25 08:25:00"
+},
+{
+    "exp_id" : 1,
+    "type" : "Medical",
+    "amount" : "$200",
+    "details" : "Appendix Surgery",
+    "managerName" : "Mr. Rohan Kumar",
+    "status" : "Approved",
+    "timestamp" : "2024-03-25 08:25:00"
+}]
+}

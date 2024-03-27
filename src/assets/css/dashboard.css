@@ -18,3 +18,32 @@
 .banner-outer{
     padding: 50px;
 }
+
+.banner-left{
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    padding: 30px;
+}
+
+.banner-right{
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    padding: 30px;
+}
+
+.heading-dashboard{
+    letter-spacing: 1px;
+    font-size: 30px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.banner-expense-list-icons{
+    width: 20px;
+    margin: 0px 3px;
+}
+
+.button-banner-expense-list{
+    padding: 0px 0px 4px 0px;
+    background-color: transparent;
+    border: 1px solid black;
+}
