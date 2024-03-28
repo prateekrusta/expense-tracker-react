@@ -9,20 +9,12 @@ const AddExpense = () => {
   const [details, setDetails] = useState('');
   const [amount, setAmount] = useState('');
   const [managerName, setManagerName] = useState('');
+  const [empName, setEmpName] = useState(JSON.parse(localStorage.getItem('data')).employeeName);
 
-  const [empName, setEmpName] = useState('');
-
-  useEffect(() => {
-    const data = JSON.parse(localStorage.getItem('data'));
-    if (data) {
-      setEmpName(data.employeeName);
-    }
-  }, []);
+  const history = useNavigate(); 
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-
-  const history = useNavigate(); 
     
   const config = {
     headers: {
@@ -47,14 +39,14 @@ const AddExpense = () => {
     axios.post(url_add_expense, data, config)
     .then((response) => {
       console.log('Successfull:', response.data);
-      localStorage.setItem('data', JSON.stringify(response.data[0]));
+      localStorage.setItem('Expensedata', JSON.stringify(response.data[0]));
       Swal.fire({
         icon: (response.data.error) ? 'error' : 'success',
         title: (response.data.error) ? response.data.error : "Expense Added Successfully!",
         showConfirmButton: false,
         timer:1500,
       })  
-      history("/dashboard")
+      history("/dashboard/personal/#")
     })
     .catch((error) => {
       console.error('Error sending data:', error.message);

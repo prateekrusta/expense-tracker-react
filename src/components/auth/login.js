@@ -37,7 +37,7 @@ const Login = () => {
         showConfirmButton: false,
         timer:1500,
       })  
-      history("/dashboard")
+      history("/dashboard/personal")
     })
     .catch((error) => {
       console.error('Error sending data:', error.message);

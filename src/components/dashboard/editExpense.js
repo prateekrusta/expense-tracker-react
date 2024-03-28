@@ -10,20 +10,12 @@ const EditExpense = ({expenseid}) => {
   const [amount, setAmount] = useState('');
   const [managerName, setManagerName] = useState('');
   const [status, setStatus] = useState('');
-  console.log(expenseid)
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
   const history = useNavigate(); 
 
-  const [empName, setEmpName] = useState('');
-
-  useEffect(() => {
-    const data = JSON.parse(localStorage.getItem('data'));
-    if (data) {
-      setEmpName(data.employeeName);
-    }
-  }, []);
+  const [empName, setEmpName] = useState(JSON.parse(localStorage.getItem('data')).employeeName);
     
   const config = {
     headers: {
@@ -37,6 +29,7 @@ const EditExpense = ({expenseid}) => {
     const url_edit_expense = `http://localhost:5206/Expenses/${expenseid}`;
 
     const data = {
+        expenseId : expenseid,
         employeeName: empName,
         type: type,
         description:details,
@@ -44,10 +37,6 @@ const EditExpense = ({expenseid}) => {
         managerName:managerName,
         status:'Pending'
       };
-
-      console.log(expenseid)
-      console.log(data)
-      console.log(data.type)
 
       axios.put(url_edit_expense, data, config)
       .then((response) => {
@@ -59,7 +48,6 @@ const EditExpense = ({expenseid}) => {
           showConfirmButton: false,
           timer:1500,
         })  
-        history("/dashboard")
       })
       .catch((error) => {
         console.error('Error sending data:', error.message);

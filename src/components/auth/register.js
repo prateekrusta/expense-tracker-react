@@ -51,7 +51,7 @@ const Register = () => {
         title: (error) ? error.message : "",
         showConfirmButton: false,
         timer:1500,
-      }) 
+      })
     });
     setIsLoading(false)
   };

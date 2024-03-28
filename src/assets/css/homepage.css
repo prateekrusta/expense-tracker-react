@@ -19,6 +19,8 @@
     letter-spacing: 1px;
     font-weight: 600;
     font-size: 30px;
+    position: relative;
+    top: 3px;
 }
 
 .nav-link{
