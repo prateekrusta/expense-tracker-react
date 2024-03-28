@@ -40,10 +40,10 @@ const Login = () => {
       history("/dashboard/personal")
     })
     .catch((error) => {
-      console.error('Error sending data:', error.message);
+      console.error('Error sending data:', error.response.data.abc);
       Swal.fire({
         icon: (error) ? 'error' : '',
-        title: (error) ? error.message : "",
+        title: (error) ? error.response.data.abc : "",
         showConfirmButton: false,
         timer:1500,
       }) 
