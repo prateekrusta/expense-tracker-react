@@ -89,6 +89,7 @@ const AddExpense = () => {
                 <label htmlFor="amount">Amount</label>
                 <input
                   type="number" 
+                  placeholder='Example : 400.00'
                   name="amount"
                   autoComplete="off"
                   required
@@ -113,7 +114,7 @@ const AddExpense = () => {
             <div className='row'>
               <div  className='form-group col-sm-12'>
                 <label htmlFor="details">Description</label>
-                <textarea placeholder="Describe your expense!" value={details} onChange={(e) => setDetails(e.target.value)}></textarea>
+                <textarea placeholder="Describe your expense!" value={details} onChange={(e) => setDetails(e.target.value)} required></textarea>
               </div>
             </div>
 

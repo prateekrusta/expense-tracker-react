@@ -4,11 +4,11 @@ import axios from 'axios';
 import Loader from '../../assets/images/Loader123.gif';
 import Swal from 'sweetalert2';
 
-const EditExpense = ({expenseid}) => {
-  const [type, setType] = useState('Travel');
-  const [details, setDetails] = useState('');
-  const [amount, setAmount] = useState('');
-  const [managerName, setManagerName] = useState('');
+const EditExpense = ({expense}) => {
+  const [type, setType] = useState(expense.type);
+  const [details, setDetails] = useState(expense.details);
+  const [amount, setAmount] = useState(expense.amount);
+  const [managerName, setManagerName] = useState(expense.managerName);
   const [status, setStatus] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
@@ -26,10 +26,10 @@ const EditExpense = ({expenseid}) => {
   const handleFormSubmit =(e)=> {
     e.preventDefault();
 
-    const url_edit_expense = `http://localhost:5206/Expenses/${expenseid}`;
+    const url_edit_expense = `http://localhost:5206/Expenses/${expense.expenseId}`;
 
     const data = {
-        expenseId : expenseid,
+        expenseId : expense.expenseId,
         employeeName: empName,
         type: type,
         description:details,
@@ -44,7 +44,7 @@ const EditExpense = ({expenseid}) => {
         localStorage.setItem('data', JSON.stringify(response.data[0]));
         Swal.fire({
           icon: (response.data.error) ? 'error' : 'success',
-          title: (response.data.error) ? response.data.error : "Expense Added Successfully!",
+          title: (response.data.error) ? response.data.error : "Expense Edited Successfully!",
           showConfirmButton: false,
           timer:1500,
         })  
@@ -65,7 +65,7 @@ const EditExpense = ({expenseid}) => {
     e.preventDefault();
 
     const data = {
-        expenseId: expenseid,
+        expenseId: expense.expenseId,
         employeeName: empName,
         type: type,
         description:details,
@@ -106,6 +106,7 @@ const EditExpense = ({expenseid}) => {
                 <label htmlFor="amount">Amount</label>
                 <input
                   type="number" 
+                  placeholder='example : 400.00'
                   name="amount"
                   autoComplete="off"
                   required
@@ -130,7 +131,7 @@ const EditExpense = ({expenseid}) => {
             <div className='row'>
               <div  className='form-group col-sm-12'>
                 <label htmlFor="details">Description</label>
-                <textarea placeholder="Describe your expense!" value={details} onChange={(e) => setDetails(e.target.value)}></textarea>
+                <textarea type="text" placeholder="Describe your expense!" name="details" value={details} onChange={(e) => setDetails(e.target.value)} required></textarea>
               </div>
             </div>
 

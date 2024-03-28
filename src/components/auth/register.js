@@ -25,6 +25,17 @@ const Register = () => {
   const handleFormSubmit =(e)=> {
     e.preventDefault();
 
+    if(confirmpassword!=password){
+      setError("Password and Confirm Password do not match!")
+      Swal.fire({
+        icon: (error) ? 'error' : '',
+        title: (error) ? error : "",
+        showConfirmButton: false,
+        timer:1500,
+      })
+    }
+    else{
+
     const data = {
       employeeName: name,
       designation:designation,
@@ -54,6 +65,7 @@ const Register = () => {
       })
     });
     setIsLoading(false)
+  }
   };
 
 
@@ -148,9 +160,6 @@ const Register = () => {
               </button>
             </div>
           </form>
-          <p>
-            {error && <div className="error-message">{error}</div>}
-          </p>
         </div>
       </div>
     </>
