@@ -14,8 +14,9 @@ const DashboardBannerPersonal = () => {
   const [expenseList, setExpenseList] = useState([]);
   const [selectedexpenseId, setSelectedexpenseId] = useState();
   const [empName, setEmpName] = useState(JSON.parse(localStorage.getItem('data')).employeeName);
-  const [filtertype, setFilterType] = useState();
-  const [filterstatus, setFilterStatus] = useState();
+  const [filtertype, setFilterType] = useState('All');
+  const [filterstatus, setFilterStatus] = useState('All');
+
 
   const url_get=`http://localhost:5206/Expenses/personal?empName=${empName}`;
   useEffect(() => {
@@ -87,19 +88,35 @@ const DashboardBannerPersonal = () => {
                   <table class="table table-hover">
                     <thead>
                       <tr>
-                        <th scope="col">ID</th>
                         <th scope="col">Category</th>
                         <th scope="col">Date</th>
                         <th scope="col">Description</th>
-                        <th scope='col'>Amount</th>
+                        <th scope="col">Amount</th>
                         <th scope="col">Status</th>
                         <th scope="col">Action</th>
                       </tr>
                     </thead>
                     {Array.isArray(expenseList) && expenseList.length > 0 ? (
-                          expenseList.map((expenseList) => (
+                            expenseList.map((expenseList) => (
+                            (filterstatus=='All' && filtertype=='All') ? 
                             <tr>
-                            <td scope="row">{expenseList.expenseId}</td>
+                              <td>{expenseList.type}</td>
+                              <td>{expenseList.date.substring(0, expenseList.date.length - 17)}</td>
+                              <td>{expenseList.description}</td>
+                              <td>{expenseList.amount}</td>
+                              <td>{expenseList.status}</td>
+                              <td>
+                                {
+                                ((expenseList.status) != "Pending" ? <>NA</> : <span>
+                                <a href={`${URL_PROD}/dashboard/personal/#editExpense`} onClick={(e) => setSelectedexpenseId(expenseList.expenseId)}><button className='button-banner-expense-list' style={{'borderColor' : 'green'}}><img src={EditIcon} className='banner-expense-list-icons'/></button></a><EditExpense expense={expenseList}/>
+                                <a href="#" onClick={(e) => { setSelectedexpenseId(expenseList.expenseId); handleDelete(e);}}><button className='button-banner-expense-list' style={{'borderColor' : 'red'}}><img src={DeleteIcon} className='banner-expense-list-icons'/></button></a>
+                                </span>
+                                )}
+                              </td>
+                            </tr>
+                            : 
+                            ((expenseList.type)==filtertype && (expenseList.status)==filterstatus) ? (
+                            <tr>
                             <td>{expenseList.type}</td>
                             <td>{expenseList.date.substring(0, expenseList.date.length - 17)}</td>
                             <td>{expenseList.description}</td>
@@ -113,7 +130,9 @@ const DashboardBannerPersonal = () => {
                               </span>
                               )}
                             </td>
-                          </tr>
+                          </tr>)
+                          : <></>
+                          
                           ))) : <></> }
                   </table>
                 </div>

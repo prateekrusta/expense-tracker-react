@@ -44,7 +44,7 @@ const EditExpense = ({expense}) => {
         localStorage.setItem('data', JSON.stringify(response.data[0]));
         Swal.fire({
           icon: (response.data.error) ? 'error' : 'success',
-          title: (response.data.error) ? response.data.error : "Expense Added Successfully!",
+          title: (response.data.error) ? response.data.error : "Expense Edited Successfully!",
           showConfirmButton: false,
           timer:1500,
         })  
@@ -106,6 +106,7 @@ const EditExpense = ({expense}) => {
                 <label htmlFor="amount">Amount</label>
                 <input
                   type="number" 
+                  placeholder='example : 400.00'
                   name="amount"
                   autoComplete="off"
                   required
@@ -130,7 +131,7 @@ const EditExpense = ({expense}) => {
             <div className='row'>
               <div  className='form-group col-sm-12'>
                 <label htmlFor="details">Description</label>
-                <textarea placeholder="Describe your expense!" value={details} onChange={(e) => setDetails(e.target.value)}></textarea>
+                <textarea type="text" placeholder="Describe your expense!" name="details" value={details} onChange={(e) => setDetails(e.target.value)} required></textarea>
               </div>
             </div>
 

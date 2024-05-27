@@ -24,6 +24,26 @@ const Register = () => {
 
   const handleFormSubmit =(e)=> {
     e.preventDefault();
+    const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
+    if(confirmpassword!=password){
+      setError("Password and Confirm Password do not match!")
+      Swal.fire({
+        icon: (error) ? 'error' : '',
+        title: (error) ? error : "",
+        showConfirmButton: false,
+        timer:1500,
+      })
+    }
+    else if(regex.test(password)==false){
+      setError("Doesn't Follow Password Parameters!")
+      Swal.fire({
+        icon: (error) ? 'error' : '',
+        title: (error) ? error : "",
+        showConfirmButton: false,
+        timer:1500,
+      })
+    }
+    else{
 
     const data = {
       employeeName: name,
@@ -54,6 +74,7 @@ const Register = () => {
       })
     });
     setIsLoading(false)
+  }
   };
 
 
@@ -148,9 +169,6 @@ const Register = () => {
               </button>
             </div>
           </form>
-          <p>
-            {error && <div className="error-message">{error}</div>}
-          </p>
         </div>
       </div>
     </>
