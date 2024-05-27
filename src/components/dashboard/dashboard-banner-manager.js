@@ -16,7 +16,6 @@ const DashboardBanner = () => {
   let URL_PROD = 'http://localhost:3000';
   const history = useNavigate(); 
 
-  const [expenseList, setExpenseList] = useState([]);
   const [managerexpenseList, setManagerExpenseList] = useState([]);
   const [selectedexpenseId, setSelectedexpenseId] = useState();
   const [empName, setEmpName] = useState(JSON.parse(localStorage.getItem('data')).employeeName);
@@ -93,6 +92,7 @@ const handleReject =(e)=> {
                         <th scope="col">Category</th>
                         <th scope="col">Date</th>
                         <th scope="col">Description</th>
+                        <th scope='col'>Amount</th>
                         <th scope="col">Status</th>
                         <th scope="col">Action</th>
                       </tr>
@@ -104,10 +104,11 @@ const handleReject =(e)=> {
                             <td>{managerexpenseList.type}</td>
                             <td>{managerexpenseList.date.substring(0, managerexpenseList.date.length - 17)}</td>
                             <td>{managerexpenseList.description}</td>
+                            <td>{managerexpenseList.amount}</td>
                             <td>{managerexpenseList.status}</td>
                             <td>
                               { ((managerexpenseList.status) != "Pending" ? <>NA</> : <span>
-                              <a onClick={(e) => { setSelectedexpenseId(managerexpenseList.expenseId); handleApprove(e);}}><button className='button-banner-expense-list' style={{'borderColor' : 'green'}}><img src={Tick} className='banner-expense-list-icons'/></button></a><EditExpense />
+                              <a onClick={(e) => { setSelectedexpenseId(managerexpenseList.expenseId); handleApprove(e);}}><button className='button-banner-expense-list' style={{'borderColor' : 'green'}}><img src={Tick} className='banner-expense-list-icons'/></button></a>
                               <a onClick={(e) => { setSelectedexpenseId(managerexpenseList.expenseId); setSelectedStatus('Rejected'); handleReject(e);}}><button className='button-banner-expense-list' style={{'borderColor' : 'red'}}><img src={Wrong} className='banner-expense-list-icons'/></button></a>
                               </span>
                               )}

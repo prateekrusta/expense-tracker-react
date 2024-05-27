@@ -66,6 +66,7 @@ const DashboardBannerPersonal = () => {
                     </div>
                     <div className='col-sm-4'>
                       <select value={filterstatus} onChange={(e) => setFilterStatus(e.target.value)}>
+                        <option onClick={(e) => setFilterStatus(e.target.value)}>All</option>
                         <option onClick={(e) => setFilterStatus(e.target.value)}>Pending</option>
                         <option onClick={(e) => setFilterStatus(e.target.value)}>Accepted</option>
                         <option onClick={(e) => setFilterStatus(e.target.value)}>Rejected</option>
@@ -73,6 +74,7 @@ const DashboardBannerPersonal = () => {
                     </div>
                     <div className='col-sm-4'>
                       <select value={filtertype} onChange={(e) => setFilterType(e.target.value)}>
+                        <option onClick={(e) => setFilterType(e.target.value)}>All</option>
                         <option onClick={(e) => setFilterType(e.target.value)}>Travel</option>
                         <option onClick={(e) => setFilterType(e.target.value)}>Food</option>
                         <option onClick={(e) => setFilterType(e.target.value)}>Health/Medical</option>
@@ -89,6 +91,7 @@ const DashboardBannerPersonal = () => {
                         <th scope="col">Category</th>
                         <th scope="col">Date</th>
                         <th scope="col">Description</th>
+                        <th scope='col'>Amount</th>
                         <th scope="col">Status</th>
                         <th scope="col">Action</th>
                       </tr>
@@ -100,11 +103,12 @@ const DashboardBannerPersonal = () => {
                             <td>{expenseList.type}</td>
                             <td>{expenseList.date.substring(0, expenseList.date.length - 17)}</td>
                             <td>{expenseList.description}</td>
+                            <td>{expenseList.amount}</td>
                             <td>{expenseList.status}</td>
                             <td>
                               {
                               ((expenseList.status) != "Pending" ? <>NA</> : <span>
-                              <a href={`${URL_PROD}/dashboard/personal/#editExpense`} onClick={(e) => setSelectedexpenseId(expenseList.expenseId)}><button className='button-banner-expense-list' style={{'borderColor' : 'green'}}><img src={EditIcon} className='banner-expense-list-icons'/></button></a><EditExpense expenseid={expenseList.expenseId}/>
+                              <a href={`${URL_PROD}/dashboard/personal/#editExpense`} onClick={(e) => setSelectedexpenseId(expenseList.expenseId)}><button className='button-banner-expense-list' style={{'borderColor' : 'green'}}><img src={EditIcon} className='banner-expense-list-icons'/></button></a><EditExpense expense={expenseList}/>
                               <a href="#" onClick={(e) => { setSelectedexpenseId(expenseList.expenseId); handleDelete(e);}}><button className='button-banner-expense-list' style={{'borderColor' : 'red'}}><img src={DeleteIcon} className='banner-expense-list-icons'/></button></a>
                               </span>
                               )}
